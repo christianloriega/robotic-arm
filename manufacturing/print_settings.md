@@ -28,17 +28,22 @@ This document records the manufacturing parameters used for major
 ### Design Metrics
 
 - Baseline CAD Mass: 157.1 g
-- Optimized CAD Mass: 128.951 g
+- Optimized CAD Mass: 128.9 g + wiring router weight
 - CAD Mass Reduction: 17.9%
 
-### Physical Validation
+### Manufacturing / Slicer Results
 
-- Slicer Estimated Mass: TBD
-- Actual Printed Mass: TBD
-- Print Time: TBD
-- Fit and Assembly: TBD
-- Visible Deflection: TBD
-- Print Issues: TBD
+Model Filament: 105.55 g
+Support Filament: 17.42 g
+Total Filament: 122.97 g
+
+Model Filament Length: 35.11 m
+Support Filament Length: 5.79 m
+Total Filament Length: 40.90 m
+
+Model Printing Time: 4 h 28 min
+Preparation Time: 7 min 1 sec
+Estimated Total Print Time: 4 h 36 min
 
 ### Notes
 
