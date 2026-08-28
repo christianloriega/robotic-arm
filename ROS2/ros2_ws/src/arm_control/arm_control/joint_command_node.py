@@ -1,17 +1,36 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float64MultiArray
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from math import radians
 
 class JointCommandPublisher(Node):
     def __init__(self):
         super().__init__('joint_command_publisher') # turns python class into a ROS2 node
-        self.joint_command_publisher = self.create_publisher(Float64MultiArray, 'joint_targets', 10) # topic
+        self.joint_command_publisher = self.create_publisher(JointTrajectory, 'joint_targets', 10) # topic
 
         self.timer = self.create_timer(1.0, self.publish_joint_commands) # publish joint commands every second
 
     def publish_joint_commands(self):
-        joint_commands = Float64MultiArray() # ROS message type for sending an array of float64 values
-        joint_commands.data = [90.0, 90.0, 90.0, 90.0, 90.0, 90.0] # example joint angles in degrees
+        joint_commands = JointTrajectory() # ROS message type for sending joint trajectory commands
+        joint_commands.joint_names = [
+            'base_joint',
+            'shoulder_joint',
+            'elbow_joint',
+            'wrist_rotate_joint',
+            'wrist_pitch_joint',
+            'gripper_joint'
+        ] 
+
+        point = JointTrajectoryPoint() # ROS message type for a single point in the trajectory
+        point.positions = [
+            radians(0),    # base_joint
+            radians(135),  # shoulder_joint
+            radians(135),   # elbow_joint
+            radians(0),    # wrist_rotate_joint
+            radians(90),  # wrist_pitch_joint
+            radians(0)    # gripper_joint
+        ]
+        joint_commands.points = [point]
 
         self.joint_command_publisher.publish(joint_commands) # publish the joint commands to the 'joint_targets' topic
 
