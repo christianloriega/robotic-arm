@@ -216,3 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# ROS 2 generated files
+build/
+install/
+log/
+
+ROS2/ros2_ws/build/
+ROS2/ros2_ws/install/
+ROS2/ros2_ws/log/
+

@@ -23,6 +23,10 @@ class ServoController(Node):
 
     def receive_joint_commands(self, joint_commands):
 
+        if not joint_commands.points:
+            self.get_logger().warning('Received trajectory with no points')
+            return
+
         names = joint_commands.joint_names
         positions = joint_commands.points[0].positions
 
