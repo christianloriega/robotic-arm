@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robotic_arm"> 
+ 
+    <!-- ==================== BASE ==================== --> 
+ 
+    <link name="base_link"> 
+        <visual> 
+            <geometry> 
+                <cylinder radius="0.5" length="0.3"/> 
+            </geometry> 
+        </visual> 
+    </link> 
+ 
+    <!-- ==================== SHOULDER ==================== --> 
+ 
+    <link name="shoulder_link"> 
+        <visual> 
+            <geometry> 
+                <box size="0.4 0.4 0.8"/> 
+            </geometry> 
+        </visual> 
+    </link> 
+ 
+    <joint name="base_joint" type="revolute"> 
+        <parent link="base_link"/> 
+        <child link="shoulder_link"/> 
+ 
+        <origin xyz="0 0 0.3" rpy="0 0 0"/> 
+        <axis xyz="0 0 1"/> 
+ 
+        <limit 
+            lower="-2.356" 
+            upper="2.356" 
+            effort="10" 
+            velocity="1.0"/> 
+    </joint> 
+ 
+    <!-- ==================== UPPER ARM ==================== --> 
+ 
+    <link name="upper_arm_link"> 
+        <visual> 
+            <geometry> 
+                <box size="0.4 0.4 1.5"/> 
+            </geometry> 
+        </visual> 
+    </link> 
+ 
+    <joint name="shoulder_joint" type="revolute"> 
+        <parent link="shoulder_link"/> 
+        <child link="upper_arm_link"/> 
+ 
+        <origin xyz="0 0 0.8" rpy="0 0 0"/> 
+        <axis xyz="0 1 0"/> 
+ 
+        <limit 
+            lower="-1.5708" 
+            upper="1.5708" 
+            effort="10" 
+            velocity="1.0"/> 
+    </joint> 
+ 
+    <!-- ==================== FOREARM ==================== --> 
+ 
+    <link name="forearm_link"> 
+        <visual> 
+            <geometry> 
+                <box size="0.35 0.35 1.5"/> 
+            </geometry> 
+        </visual> 
+    </link> 
+ 
+    <joint name="elbow_joint" type="revolute"> 
+        <parent link="upper_arm_link"/> 
+        <child link="forearm_link"/> 
+ 
+        <origin xyz="0 0 1.5" rpy="0 0 0"/> 
+        <axis xyz="0 1 0"/> 
+ 
+        <limit 
+            lower="-1.8326" 
+            upper="1.8326" 
+            effort="10" 
+            velocity="1.0"/> 
+    </joint> 
+ 
+    <!-- ==================== WRIST ROTATION ==================== --> 
+ 
+    <link name="wrist_rotate_link"> 
+        <visual> 
+            <geometry> 
+                <cylinder radius="0.25" length="0.5"/> 
+            </geometry> 
+        </visual> 
+    </link> 
+ 
+    <joint name="wrist_rotate_joint" type="revolute"> 
+        <parent link="forearm_link"/> 
+        <child link="wrist_rotate_link"/> 
+ 
+        <origin xyz="0 0 1.5" rpy="0 0 0"/> 
+        <axis xyz="0 0 1"/> 
+ 
+        <limit 
+            lower="-1.5708" 
+            upper="1.5708" 
+            effort="5" 
+            velocity="1.0"/> 
+    </joint> 
+ 
+    <!-- ==================== WRIST PITCH ==================== --> 
+ 
+    <link name="wrist_pitch_link"> 
+        <visual> 
+            <geometry> 
+                <box size="0.4 0.4 0.6"/> 
+            </geometry> 
+        </visual> 
+    </link> 
+ 
+    <joint name="wrist_pitch_joint" type="revolute"> 
+        <parent link="wrist_rotate_link"/> 
+        <child link="wrist_pitch_link"/> 
+ 
+        <origin xyz="0 0 0.5" rpy="0 0 0"/> 
+        <axis xyz="0 1 0"/> 
+ 
+        <limit 
+            lower="-1.5708" 
+            upper="1.5708" 
+            effort="5" 
+            velocity="1.0"/> 
+    </joint> 
+ 
+    <!-- ==================== GRIPPER ==================== --> 
+ 
+    <link name="gripper_link"> 
+        <visual> 
+            <geometry> 
+                <box size="0.6 0.4 0.8"/> 
+            </geometry> 
+        </visual> 
+    </link> 
+ 
+    <joint name="gripper_mount_joint" type="fixed"> 
+        <parent link="wrist_pitch_link"/> 
+        <child link="gripper_link"/> 
+ 
+        <origin xyz="0 0 0.6" rpy="0 0 0"/> 
+    </joint> 
+ 
+</robot>
