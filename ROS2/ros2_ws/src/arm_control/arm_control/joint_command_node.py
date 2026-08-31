@@ -22,12 +22,13 @@ class JointCommandPublisher(Node):
         ] 
 
         point = JointTrajectoryPoint() # ROS message type for a single point in the trajectory
+        # Home position in ROS joint coordinates
         point.positions = [
             radians(0),    # base_joint
-            radians(135),  # shoulder_joint
-            radians(135),   # elbow_joint
+            radians(0),  # shoulder_joint
+            radians(0),   # elbow_joint
             radians(0),    # wrist_rotate_joint
-            radians(90),  # wrist_pitch_joint
+            radians(0),  # wrist_pitch_joint
             radians(0)    # gripper_joint
         ]
         joint_commands.points = [point]
